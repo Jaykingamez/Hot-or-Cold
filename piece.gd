@@ -1,0 +1,7 @@
+extends Node2D
+
+enum TYPES_OF_PIECES {EMPTY = -1,CIRNO,UTSUHO, MOKOU, OBSTACLE}
+export (TYPES_OF_PIECES) var type = TYPES_OF_PIECES.CIRNO
+
+
+
