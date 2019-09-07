@@ -1,5 +1,9 @@
 extends Label
 
+var next_scene = preload("res://Hot or Cold2.tscn")
+signal Transition
+
+
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
@@ -42,4 +46,8 @@ func _on_Mokou_Hotter():
 
 
 func _on_Mokou_Hottest():
-	Setting_Of_Text("Hottest!")# Replace with function body.
+	Setting_Of_Text("Hottest!")
+	emit_signal("Transition")
+	self.set_draw_behind_parent(false)
+	get_tree().change_scene_to(next_scene)
+	

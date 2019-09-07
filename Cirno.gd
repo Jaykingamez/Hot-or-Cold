@@ -4,6 +4,7 @@ onready var Grid = get_parent()
 var new_position : bool = false 
 var target_position 
 
+
 func _ready():
 	#update_look_direction(Vector2(1,0))
 	pass
