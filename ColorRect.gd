@@ -9,6 +9,7 @@ func _ready():
 	self.rect_size = get_viewport().size
 	self.hide()
 	
+	
 
 
 

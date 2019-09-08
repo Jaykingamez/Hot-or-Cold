@@ -48,6 +48,7 @@ func _on_Mokou_Hotter():
 func _on_Mokou_Hottest():
 	Setting_Of_Text("Hottest!")
 	emit_signal("Transition")
-	self.set_draw_behind_parent(false)
+	#self.set_draw_behind_parent(false)
+	yield(get_tree().create_timer(3),"timeout")
 	get_tree().change_scene_to(next_scene)
 	

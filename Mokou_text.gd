@@ -1,5 +1,5 @@
 extends Label
-
+signal Transition
 var next_scene = preload("res://Hot or Cold3.tscn")
 # Declare member variables here. Examples:
 # var a = 2
@@ -23,6 +23,9 @@ func _on_Cirno_Colder():
 
 func _on_Cirno_Coldest():
 	Setting_Of_Text("Cirno! What are you doing 'ere ?")
+	emit_signal("Transition")
+
+	yield(get_tree().create_timer(3),"timeout")
 	get_tree().change_scene_to(next_scene)
 
 func _on_Cirno_Kaguya():

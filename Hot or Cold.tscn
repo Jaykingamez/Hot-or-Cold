@@ -23,6 +23,7 @@ script = ExtResource( 1 )
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer/HUD"]
 margin_right = 40.0
 margin_bottom = 40.0
+color = Color( 0, 0, 0, 1 )
 script = ExtResource( 2 )
 
 [node name="Text" type="Label" parent="CanvasLayer/HUD"]
@@ -33,7 +34,6 @@ text = "Eye'm the greatest"
 script = ExtResource( 3 )
 
 [node name="Story" type="Label" parent="CanvasLayer/HUD"]
-visible = false
 margin_left = 1040.32
 margin_top = 2.86886
 margin_right = 1088.32
@@ -41,7 +41,7 @@ margin_bottom = 21.5473
 grow_horizontal = 0
 grow_vertical = 0
 rect_scale = Vector2( 2.5, 2.5 )
-autowrap = true
+valign = 1
 script = ExtResource( 4 )
 
 [node name="Grid" type="TileMap" parent="."]
@@ -67,6 +67,7 @@ offset = Vector2( 480, 268 )
 current = true
 editor_draw_drag_margin = true
 [connection signal="Transition" from="CanvasLayer/HUD/Text" to="CanvasLayer/HUD/ColorRect" method="_on_Text_Transition"]
+[connection signal="Transition" from="CanvasLayer/HUD/Text" to="CanvasLayer/HUD/Story" method="_on_Text_Transition"]
 [connection signal="Greatest" from="Grid/Pieces/Mokou" to="CanvasLayer/HUD/Text" method="_on_Mokou_Greatest"]
 [connection signal="Hot" from="Grid/Pieces/Mokou" to="CanvasLayer/HUD/Text" method="_on_Mokou_Hot"]
 [connection signal="Hotter" from="Grid/Pieces/Mokou" to="CanvasLayer/HUD/Text" method="_on_Mokou_Hotter"]

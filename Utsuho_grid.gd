@@ -1,5 +1,7 @@
 extends TileMap
 
+onready var mokou = preload("res://Mokou.tscn")
+
 enum {EMPTY = -1, CIRNO, UTSUHO, MOKOU, OBSTACLE, PROJECTILE, YELLOW}
 onready var Cirno = $Cirno
 onready var Utsuho = $Utsuho
@@ -8,6 +10,7 @@ var TOP: int = -1
 var BOTTOM : int = 10
 var LEFT: int = -4
 var RIGHT: int = 18
+signal Stand
 
 
 
@@ -162,14 +165,8 @@ func Utsuho_SpellCard2():
 			else:
 				laser = Vector2(laser.x, laser.y+3)
 		count += 1
+		emit_signal("Stand")
+
 	
-	
-		
-		
-	
-		
-	
-				
-		
-	
-	
+func _on_Text_StandProud():
+	pass # Replace with function body.
