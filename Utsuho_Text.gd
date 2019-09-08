@@ -1,6 +1,7 @@
 extends Label
 signal StandProud
 
+
 func _ready():
 	set_process(false)
 
@@ -14,4 +15,5 @@ func _process(delta):
 		emit_signal("StandProud")
 		self.set_text("MOKOUIAN RED")
 		set_process(false)
+	
 		

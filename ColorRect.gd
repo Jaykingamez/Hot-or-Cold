@@ -16,3 +16,7 @@ func _ready():
 
 func _on_Text_Transition():
 	self.show() # Replace with function body.
+
+
+func _on_Pieces_Bye():
+	 self.show() # Replace with function body.

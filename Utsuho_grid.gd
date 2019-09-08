@@ -11,6 +11,9 @@ var BOTTOM : int = 10
 var LEFT: int = -4
 var RIGHT: int = 18
 signal Stand
+signal Bye
+
+
 
 
 
@@ -25,7 +28,11 @@ func _ready():
 		for height in range(the_grid.HEIGHT-the_grid.STARTING_POSITION.y):
 			if width == 0 or height == 0 or width == the_grid.WIDTH-the_grid.STARTING_POSITION.x-1  or height == the_grid.HEIGHT-the_grid.STARTING_POSITION.y-1:
 				set_cellv(Vector2(width+the_grid.STARTING_POSITION.x,height+the_grid.STARTING_POSITION.y), OBSTACLE)
-	Utsuho_SpellCard2()
+	#var mokou1 = mokou.instance()
+	#mokou1.position = map_to_world(Vector2(7, 2))
+	#self.add_child(mokou1)
+	Utsuho_SpellCard1()
+	
 
 
 			
@@ -165,8 +172,14 @@ func Utsuho_SpellCard2():
 			else:
 				laser = Vector2(laser.x, laser.y+3)
 		count += 1
-		emit_signal("Stand")
+	emit_signal("Stand")
 
 	
 func _on_Text_StandProud():
-	pass # Replace with function body.
+	Cirno.position = map_to_world(Vector2(7,9)) 
+	var mokou1 = mokou.instance()
+	mokou1.position = map_to_world(Vector2(7, 2))
+	self.add_child(mokou1)
+	yield(get_tree().create_timer(5),"timeout")
+	emit_signal("Bye")
+	
