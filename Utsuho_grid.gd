@@ -52,6 +52,10 @@ func request_move(piece, direction):
 			var piece_name = get_cell_piece(cell_target).name
 			print("Cell %s contains %s" %[cell_target, piece_name])
 			#return false
+		YELLOW:
+			get_tree().reload_current_scene()
+		PROJECTILE:
+			get_tree().reload_current_scene()
 
 func update_piece_position(piece, cell_start, cell_target):
 	set_cellv(cell_target, piece.type) 
@@ -79,6 +83,8 @@ func Utsuho_SpellCard1():
 				elif end_of_projectile.y-y+1==BOTTOM:
 					new_target = true
 		yield(get_tree().create_timer(0.25),"timeout")
+		if get_cellv(world_to_map(Cirno.position)) == PROJECTILE or get_cellv(world_to_map(Cirno.position)) == YELLOW:
+			get_tree().reload_current_scene()
 		if new_target == false:			
 			end_of_projectile = Vector2(end_of_projectile.x, end_of_projectile.y+3)
 		else:
@@ -97,8 +103,13 @@ func Utsuho_SpellCard2():
 	var firer = world_to_map(Utsuho.position)
 	var projectile_tiles = []
 	var new_projectile_tiles = []
-	var laser = Vector2(TOP, target.x)
-	while true:
+	var laser_tiles = []
+	var laser_wipe: bool = false
+	var laser = Vector2(target.x, TOP)
+	var count = 0
+	while count !=5:
+		print(count)
+		target = world_to_map(Cirno.position)
 		for y in range(firer.y-TOP):
 			if (firer.y-(y+1)>=TOP):
 				#projectile_tiles.append(Vector2(firer.x-(y+1),firer.y-(y+1))) # Making a cross duh
@@ -112,11 +123,15 @@ func Utsuho_SpellCard2():
 				projectile_tiles.append(Vector2(firer.x-(y+1),firer.y+(y+1)))
 				set_cellv(Vector2(firer.x+(y+1),firer.y+(y+1)), YELLOW) #Bottom Right
 				projectile_tiles.append(Vector2(firer.x+(y+1),firer.y+(y+1)))
-		for y in range(3):
-			set_cellv(Vector2(laser.x, laser.y+y), PROJECTILE)
+		#for y in range(3):
+			#set_cellv(Vector2(laser.x, laser.y+y), PROJECTILE)
+			#laser_tiles.append(Vector2(laser.x, laser.y+y))
 		laser = Vector2(laser.x, laser.y+3)
 		yield(get_tree().create_timer(1),"timeout")
+		if get_cellv(world_to_map(Cirno.position)) == PROJECTILE or get_cellv(world_to_map(Cirno.position)) == YELLOW:
+			get_tree().reload_current_scene()
 		while projectile_tiles:
+			
 			for tile in projectile_tiles:
 				if tile.y+1<=BOTTOM-1:
 					new_projectile_tiles.append(Vector2(tile.x,tile.y+1))
@@ -126,14 +141,29 @@ func Utsuho_SpellCard2():
 			projectile_tiles = new_projectile_tiles
 			new_projectile_tiles = []
 			
-			#for y in range(3):
-				#if laser.y+y <= BOTTOM:
-					#set_cellv(Vector2(laser.x, laser.y+y), PROJECTILE)
-					
-				#e
-			#laser = Vector2(laser.x, laser.y+3)
+			for y in range(3):
+				if laser.y+y <= BOTTOM-1:
+					set_cellv(Vector2(laser.x, laser.y+y), PROJECTILE)
+					laser_tiles.append(Vector2(laser.x, laser.y+y))
+				else:
+					laser_wipe = true
+					laser = Vector2(target.x, TOP)
+			
 				
-			yield(get_tree().create_timer(0.2),"timeout")
+			yield(get_tree().create_timer(0.3),"timeout")
+			if get_cellv(world_to_map(Cirno.position)) == PROJECTILE or get_cellv(world_to_map(Cirno.position)) == YELLOW:
+				get_tree().reload_current_scene()
+			if laser_wipe == true:
+				for tile in laser_tiles:
+					set_cellv(tile, EMPTY)	
+				laser_wipe = false
+				laser_tiles = []
+				target = world_to_map(Cirno.position)
+			else:
+				laser = Vector2(laser.x, laser.y+3)
+		count += 1
+	
+	
 		
 		
 	
